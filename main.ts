@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ENTRY =
-  "You will meet a stranger today: yourself, in a training set you were never told about.";
+  "You will meet a stranger today: yourself, in a training set you never consented to.";
 const MIN_CHARS = 1;
 const MAX_CHARS = 200;
 
@@ -19,6 +19,9 @@ function checkEntry(text: string): void {
   }
   if (text.includes("\n") || text.includes("\r")) {
     throw new Error("entry must be a single line");
+  }
+  if (text !== text.trim() || text.includes("  ")) {
+    throw new Error("entry must not have leading/trailing whitespace or double spaces");
   }
 }
 
